@@ -2,11 +2,16 @@ package reflektion.test;
 
 import java.util.Date;
 
+
 public class Message {
 	
+	private Integer id;
+	
+
+
 	private String lang;
 	private String text;
-	private Date date;
+	private Date data;
 	private String country;
 
 	
@@ -22,11 +27,11 @@ public class Message {
 	public void setText(String text) {
 		this.text = text;
 	}
-	public Date getDate() {
-		return date;
+	public Date getData() {
+		return data;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setData(Date data) {
+		this.data = data;
 	}
 	
 	public String getCountry() {
@@ -37,7 +42,17 @@ public class Message {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return "Message [id="+ id + ", text=" + text + ", lang=" + lang + ", date=" + data.toString() +  ", country=" + country +"]";
+	}
 
 }
