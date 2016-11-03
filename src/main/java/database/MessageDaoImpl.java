@@ -29,10 +29,10 @@ public class MessageDaoImpl implements MessageDao {
 	@Override
 	public Message findById(Integer id) {
 		
-		Map<Integer, Object> params = new HashMap<Integer, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         
-		String sql = "SELECT * FROM users WHERE name=:name";
+		String sql = "SELECT * FROM message WHERE id=:id";
 		
         Message result = namedParameterJdbcTemplate.queryForObject(
                     sql,
