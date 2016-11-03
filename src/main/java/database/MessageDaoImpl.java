@@ -2,6 +2,7 @@ package database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -14,48 +15,58 @@ import org.springframework.stereotype.Repository;
 
 import reflektion.test.Message;
 
-
-
 @Repository
 public class MessageDaoImpl implements MessageDao {
 
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
+	Integer M = new Integer(0);
+
 	@Autowired
-	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+	public void setNamedParameterJdbcTemplate(
+			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-	}
-	
-	@Override
-	public Message findById(Integer id) {
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-        params.put("id", id);
-        
-		String sql = "SELECT * FROM message WHERE id=:id";
-		
-        Message result = namedParameterJdbcTemplate.queryForObject(
-                    sql,
-                    params,
-                    new MessageMapper());
-                    
-        //new BeanPropertyRowMapper(Customer.class));
-        
-        return result;
-        
 	}
 
 	@Override
-	public List<Message> findAll() {
-		
+	public Message findById(Integer id) {
+
 		Map<String, Object> params = new HashMap<String, Object>();
-		
-		String sql = "SELECT * FROM users";
-		
-        List<Message> result = namedParameterJdbcTemplate.query(sql, params, new MessageMapper());
-        
-        return result;
-        
+		params.put("id", id);
+
+		String sql = "SELECT * FROM message WHERE id=:id";
+
+		Message result = namedParameterJdbcTemplate.queryForObject(sql, params,
+				new MessageMapper());
+
+		// new BeanPropertyRowMapper(Customer.class));
+
+		return result;
+
+	}
+
+	@Override
+	public List<Message> findAll(Integer numOf, String lang) {
+
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		String sql_M = "SELECT * FROM message";
+
+		List<Message> messages = namedParameterJdbcTemplate.query(sql_M,
+				params, new MessageMapper());
+
+		M = messages.size(); // CANTIDAD MAXIMA DE MENSAJES
+
+		if (numOf.intValue() <= M.intValue()) {
+
+			String sql = "SELECT * FROM message WHERE ($2='all' OR $2 = message.lang) ORDER BY data DESC)";
+
+			List<Message> result = namedParameterJdbcTemplate.query(sql,
+					params, new MessageMapper());
+
+			return result;
+		} else
+			return null;
+
 	}
 
 	private static final class MessageMapper implements RowMapper<Message> {
@@ -68,8 +79,7 @@ public class MessageDaoImpl implements MessageDao {
 			msg.setData(rs.getDate("date", new GregorianCalendar()));
 			msg.setCountry(rs.getString("country"));
 			return msg;
-			
-			
+
 		}
 	}
 

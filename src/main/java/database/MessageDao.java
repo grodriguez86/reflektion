@@ -8,6 +8,7 @@ public interface MessageDao {
 
 	Message findById(Integer id);
 	
-	List<Message> findAll();
+	List<Message> findAll(Integer n, String lang);
+
 
 }
