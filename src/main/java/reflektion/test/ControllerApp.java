@@ -2,22 +2,12 @@ package reflektion.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.File;
 import java.io.IOException;
-
-
-
-
-
-
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import com.maxmind.geoip.Country;
 import com.maxmind.geoip.LookupService;
-
 import database.MessageDaoImpl;
 
 
@@ -31,10 +21,7 @@ public class ControllerApp {
 	 @Autowired
 	 MessageDaoImpl repoMessage;
 
-
-
 	// Endpoint #1
-
 	@RequestMapping(value = "/reflektion/postMessage/{msg}", method = RequestMethod.POST)
 	public @ResponseBody String post(HttpServletRequest request,
 			@PathVariable("msg") String message) throws IOException {

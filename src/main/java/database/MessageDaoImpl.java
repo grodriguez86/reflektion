@@ -28,23 +28,6 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public Message findById(Integer id) {
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
-
-		String sql = "SELECT * FROM message WHERE id=:id";
-
-		Message result = namedParameterJdbcTemplate.queryForObject(sql, params,
-				new MessageMapper());
-
-		// new BeanPropertyRowMapper(Customer.class));
-
-		return result;
-
-	}
-
-	@Override
 	public List<Message> findAll(Integer numOf, String lang) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -58,14 +41,24 @@ public class MessageDaoImpl implements MessageDao {
 
 		if (numOf.intValue() <= M.intValue()) {
 
-			String sql = "SELECT * FROM message WHERE ($2='all' OR $2 = message.lang) ORDER BY data DESC)";
+			String sql = "SELECT * FROM message WHERE (?2='all' OR ?2 = message.lang) ORDER BY data DESC)";
 
 			List<Message> result = namedParameterJdbcTemplate.query(sql,
 					params, new MessageMapper());
 
 			return result;
 		} else
-			return null;
+		{
+			List<Message> result = new ArrayList<Message>();
+			Message msg = new Message();
+			msg.setCountry(null);
+			msg.setData(null);
+			msg.setId(null);
+			msg.setLang(null);
+			msg.setText("Max number of messages has been achieved");
+			result.add(msg);
+			return result;
+		}
 
 	}
 

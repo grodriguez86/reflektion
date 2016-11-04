@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>reflektion.test</name>
-	<description>Test para entrar a Reflektion</description>
+	<description>Test de Reflektion</description>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -78,7 +78,6 @@
 			<artifactId>derby</artifactId>
 			<version>${derby.version}</version>
 		</dependency>
-
 
 	</dependencies>
 </project>
