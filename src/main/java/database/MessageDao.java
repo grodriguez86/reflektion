@@ -2,7 +2,7 @@ package database;
 
 import java.util.List;
 
-import reflektion.test.Message;
+import controller.Message;
 
 public interface MessageDao {
 

@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import reflektion.test.Message;
+import controller.Message;
 
 @Repository
 public class MessageDaoImpl implements MessageDao {
