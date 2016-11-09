@@ -19,7 +19,6 @@ import reflektion.test.Message;
 public class MessageDaoImpl implements MessageDao {
 
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	Integer M = new Integer(0);
 
 	@Autowired
 	public void setNamedParameterJdbcTemplate(
@@ -28,37 +27,16 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public List<Message> findAll(Integer numOf, String lang) {
+	public List<Message> findAll(int numOf, String lang) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 
-		String sql_M = "SELECT * FROM message";
+		String sql = "SET @M = 10; SELECT * FROM message LIMIT ?1 WHERE ( M >=?1 AND (?2='all' OR ?2 = message.lang)) ORDER BY data DESC)";
 
-		List<Message> messages = namedParameterJdbcTemplate.query(sql_M,
-				params, new MessageMapper());
+		List<Message> result = namedParameterJdbcTemplate.query(sql, params,
+				new MessageMapper());
 
-		M = messages.size(); // CANTIDAD MAXIMA DE MENSAJES
-
-		if (numOf.intValue() <= M.intValue()) {
-
-			String sql = "SELECT * FROM message WHERE (?2='all' OR ?2 = message.lang) ORDER BY data DESC)";
-
-			List<Message> result = namedParameterJdbcTemplate.query(sql,
-					params, new MessageMapper());
-
-			return result;
-		} else
-		{
-			List<Message> result = new ArrayList<Message>();
-			Message msg = new Message();
-			msg.setCountry(null);
-			msg.setData(null);
-			msg.setId(null);
-			msg.setLang(null);
-			msg.setText("Max number of messages has been achieved");
-			result.add(msg);
-			return result;
-		}
+		return result;
 
 	}
 

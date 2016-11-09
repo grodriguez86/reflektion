@@ -17,7 +17,7 @@ public class DerbyDataSource {
 	public DataSource dataSource() {
 
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY).addScript("db/sql/create-db.sql").addScript("db/sql/insert-data.sql").build();
+		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY).addScript("src/main/resources/create-db.sql").addScript("src/main/resources/insert-data.sql").build();
 		return db;
 
 	}

@@ -7,7 +7,7 @@ import reflektion.test.Message;
 public interface MessageDao {
 
 
-	List<Message> findAll(Integer n, String lang);
+	List<Message> findAll(int numOf, String lang);
 
 
 }
