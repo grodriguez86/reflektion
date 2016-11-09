@@ -1,6 +1,9 @@
 package reflektion.test;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 public class Message {
@@ -8,7 +11,8 @@ public class Message {
 	private Integer id;
 	private String lang;
 	private String text;
-	private Date data;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "America/Argentina/Buenos_Aires")
+	private Calendar data;
 	private String country;
 
 	
@@ -24,10 +28,10 @@ public class Message {
 	public void setText(String text) {
 		this.text = text;
 	}
-	public Date getData() {
+	public Calendar getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 	

@@ -16,8 +16,6 @@ public class ControllerApp {
 
 	 String lang=new String();
 	 
-	 Integer M = new Integer(2);
-	 
 	 @Autowired
 	 MessageDaoImpl repoMessage;
 

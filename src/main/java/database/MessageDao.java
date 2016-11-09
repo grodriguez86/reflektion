@@ -8,6 +8,7 @@ public interface MessageDao {
 
 
 	List<Message> findAll(int numOf, String lang);
+	void save(Message message);
 
 
 }
